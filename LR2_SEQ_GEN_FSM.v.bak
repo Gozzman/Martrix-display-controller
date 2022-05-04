@@ -1,0 +1,59 @@
+module LR2_SEQ_GEN_FSM(
+input clk,
+input UP,,
+input CE,
+input RST,
+output wire [3:0] SEQ
+);
+
+reg [3:0] state;
+reg [3:0] LED;
+assign SEQ[3:0] = LED[3:0];
+
+always @(posedge CLK, posedge RST)
+begin
+	if(RST) 
+		state <= 4'h0;
+	else if(CE)
+		case(state)
+			4'h0: if(UP) state <= 4'h1; else state <= 4'hf;
+			4'h1: if(UP) state <= 4'h2; else state <= 4'h0;
+			4'h2: if(UP) state <= 4'h3; else state <= 4'h1;
+			4'h3: if(UP) state <= 4'h4; else state <= 4'h2;
+			4'h4: if(UP) state <= 4'h5; else state <= 4'h3;
+			4'h5: if(UP) state <= 4'h6; else state <= 4'h4;
+			4'h6: if(UP) state <= 4'h7; else state <= 4'h5;
+			4'h7: if(UP) state <= 4'h8; else state <= 4'h6;
+			4'h8: if(UP) state <= 4'h9; else state <= 4'h7;
+			4'h9: if(UP) state <= 4'ha; else state <= 4'h8;
+			4'ha: if(UP) state <= 4'hb; else state <= 4'h9;
+			4'hb: if(UP) state <= 4'hc; else state <= 4'ha;
+			4'hc: if(UP) state <= 4'hd; else state <= 4'hb;
+			4'hd: if(UP) state <= 4'he; else state <= 4'hc;
+			4'he: if(UP) state <= 4'hf; else state <= 4'hd;
+			4'hf: if(UP) state <= 4'h0; else state <= 4'he;
+		endcase 
+	else 
+		state <= state;
+		
+	case(state)
+		4'h0: LED <= 4'h4;
+		4'h1: LED <= 4'h4;
+		4'h2: LED <= 4'h2;
+		4'h3: LED <= 4'h5;
+		4'h4: LED <= 4'h2;
+		4'h5: LED <= 4'hC;
+		4'h6: LED <= 4'hF;
+		4'h7: LED <= 4'h3;
+		4'h8: LED <= 4'h3;
+		4'h9: LED <= 4'hA;
+		4'ha: LED <= 4'h3;
+		4'hb: LED <= 4'h5;
+		4'hc: LED <= 4'hB;
+		4'hd: LED <= 4'h7;
+		4'he: LED <= 4'h9;
+		4'hf: LED <= 4'hB;
+	endcase
+end
+
+endmodule

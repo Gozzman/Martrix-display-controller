@@ -1,0 +1,21 @@
+ module LR4_MATRIX_DISP_V10(
+ input clk,
+ input rst,
+ input SEQ[3:0],
+ output [7:0]column,
+ output [7:0]row
+ );
+ reg [2:0]column_counter;
+ reg [7:0] ROM[127:0];
+ 
+always@(posedge clk, posedge rst)
+begin
+	if(rst)
+		column_counter <= 0;
+	else if(column_counter == 3'b111)
+		column_counter <= 0;
+	else 
+		column_counter <= column_counter + 1'b1;
+end
+
+		

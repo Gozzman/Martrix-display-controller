@@ -1,0 +1,26 @@
+module test;
+// Inputs
+reg clk = 0;
+reg rst;
+reg btn;
+reg [7:0]switch;
+
+wire [7:0]row;
+wire [7:0]column;
+
+
+
+// Instantiate the Unit Under Test (UUT)
+LR4_Top_V10 UUT (
+.clk(clk), 
+.rst(rst),  
+.btn(btn), 
+.switch(switch), 
+.row(row),
+.column(column)
+);
+
+
+always  #5 clk = ~clk; end
+
+initial begin

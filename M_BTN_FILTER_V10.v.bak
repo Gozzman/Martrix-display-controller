@@ -1,0 +1,46 @@
+module M_BTN_FILTER_V10(
+input clk,
+input rst,
+input btn,
+output reg btn_state,
+output reg btn_down,
+output reg btn_up
+);
+
+reg [1:0] d_latch;
+always@(posedge clk, posedge rst)
+begin
+	if(rst)
+		d_latch <= 2'b00;
+	else 
+		d_latch <= {d_latch[0], ~btn};
+end
+
+reg[2:0] counter;
+wire change_flag = (change_flag != d_lach[1]);
+wire counter_max = &counter;
+
+always@(posedge clk, posedge rst)
+begin
+	if(rst)
+	begin
+		counter <= 0;
+		btn_state <= 0;
+	end
+	else if(change_flag)
+	begin
+		counter <= counter + 1;
+		if(counter_max)
+			btn_state <= ~btn_state;
+	end
+	else
+		counter <= 0;
+end
+
+always @(posedge clk)
+begin
+	btn_down <= change_flag & counter_max & ~btn_state;
+	btn_up <= change_flag & counter_max & btn_state;
+end
+ 
+endmodule
