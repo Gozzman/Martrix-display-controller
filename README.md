@@ -8,6 +8,7 @@ Diagram of the synthesized part of the project:
 ![image](https://user-images.githubusercontent.com/81770156/166634777-38dcf837-37d3-47c1-85d9-0bb44425fd27.png)
 
 Diagram of the test module:
+
 ![image](https://user-images.githubusercontent.com/81770156/166634946-cc86cd00-9811-4225-b2ab-489aa11c4e74.png)
 
 Displaying a symbol on a matrix indicator:
